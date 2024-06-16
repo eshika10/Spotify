@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="stylesheets/style.css"/>
+</head>
+<body>
+         
+           <div id="main">
+                <div id="left" >
+                     <button style="background-color:#121212;color:white;padding:0.8rem 1rem;display: flex;font-weight:600;gap: 0.9em;">
+                      <i class="ri-home-fill"></i> <p>Home</p>
+                      
+                     </button><br>
+                     <button style="background-color:#121212;color:white;display: flex;padding:0.8rem 1rem;font-weight: 600;gap: 0.9em;">
+                      <i class="ri-file-search-fill"></i> <p>Search</p>
+                      
+                     </button><br>
+                     <button class="tile" style="width:100%;
+                     border-radius: 0.3rem;
+                     background-color:#121212;
+                     padding:0.8rem 1rem;
+                     display: flex;
+                     gap: 0.9em;color:white">
+                      <i class="ri-heart-add-fill"></i>
+                      <p>Liked Songs</p>
+                     </button>
+                </div>
+                <div id="right" style="flex-wrap: wrap;gap:0.6 rem;justify-content: space-around;overflow-y: auto;background-color: #121212;">
+
+                    <%musics.forEach(music=>{%>
+                      <div class="card" style="width: 10rem;margin-top: 0.89rem;padding-left: 0.89rem;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;display:flex;flex-direction: column;gap:1rem;border:none;" >
+                        <img src="/getPoster/<%=music.poster%>" height=150 alt="">
+                        <div class="text">
+                           <div class="title" style="color:azure;font-weight: 500;font-size: 1.2 rem;width:100%;overflow:hidden;text-overflow: ellipsis;white-space:nowrap;"><%= music.title%></div>
+                           <div class="artist" style="color:azure;opacity:0.7;font-size:0.89rem;overflow:hidden;text-overflow: ellipsis;white-space:nowrap;"><%= music.artist %></div>
+                           <audio src="/getMusic/<%= music.name %>" hidden></audio>
+                        </div>
+                     </div>
+                    <% }) %>
+                    
+                </div>
+
+                <div id="bottom" style="position: fixed;bottom:0;width:100%;min-height: 50px;background-color:#000;display: flex;align-items: center;justify-content: space-between;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+                     <div class="song" style="height:2rem;width:2rem;object-fit: cover;display: flex;">
+                          <img src="/getPoster/a65c78c1ef8b874dca9fbb28310f8f74c76bc71bposter" height=50 alt="">
+                          <div class="text" style="font-size: 0.8 rem;color:whitesmoke;padding-left:1 rem;">
+                            <p style="white-space:nowrap;font-weight:100;font-size: 1rem;overflow:hidden;text-overflow: ellipsis;">Heeriya herriya aaaa teri hoka mara</p>
+                            <p style="white-space:nowrap;font-weight:50;font-size: 0.89rem ;overflow:hidden;text-overflow: ellipsis;opacity:0.7;">Arjit Singh and Jasleen Royal</p>
+                          </div>
+                     </div>
+                     <div class="songControl" style="align-items: center;justify-content:space-around;">
+                         <div class="upper" style="color:white;align-items: center;justify-content: space-around;display: flex;">
+                           <i class="ri-skip-left-fill"></i> 
+                           <i class="ri-play-circle-fill"></i>
+                           <i class="ri-skip-right-fill"></i>
+                         </div>
+                         <div class="lower" style="color:whitesmoke;display:flex;opacity:0.7">
+                            <input oninput="seekBarChange(event)" type="range" min="0" max="100">
+                            <div class="track" style="position: absolute;width:25 rem;height:0.5 rem;transform:translate(-50%,-50%);left:50%;right:50%;background-color:red;pointer-events: none;">
+                               <div class="runway"></div>
+                                <div id="seekThumb" class="thumb" ></div>
+                            </div>
+                          
+                         </div>
+                     </div>
+                     <div class="volumeControl" style="color:whitesmoke;display: flex;justify-content: space-between;">
+                        <i class="ri-volume-up-fill"></i>
+                        <input type="range" min="0" max="100">
+                     </div>
+                </div>
+
+           </div>
+
+           <script>
+                   document.querySelectorAll('.card').forEach(card=>{
+                        card.addEventListener('click',(event)=>{
+                                card.querySelector('audio').play()
+                        })
+                   })
+
+                   function seekBarChange(event){
+                       document.querySelector('#seekThumb').style.left= event.target.value + '%';
+                   }
+           </script> 
+</body>
+</html>
+
+<!-- <%musics.forEach(music=>{%>
+  <img src="/getPoster/<%=music.poster%>" height="200">
+  <audio src="/getMusic/<%= music.name %>" controls></audio>
+<% }) %> -->
